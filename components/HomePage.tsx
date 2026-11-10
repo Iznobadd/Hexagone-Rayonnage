@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
+import { motion, MotionConfig } from "motion/react";
 
 const suggestions = {
   palettes: { text: "Le rack à palettes permet un stockage en hauteur, adapté à la manutention par chariot.", project: "Rayonnages" },
@@ -61,7 +62,7 @@ export default function HomePage({ year }: { year: number }) {
     window.location.href = `mailto:contact@hexagone-rayonnage.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  return (<>
+  return (<MotionConfig reducedMotion="user">
 <a className="skip" href="#contenu">Aller au contenu</a>
 <div className="topline">
 <div className="wrap">
@@ -86,24 +87,14 @@ export default function HomePage({ year }: { year: number }) {
 </header>
 <main id="contenu">
 <section className="hero" aria-labelledby="hero-title">
-<img className="hero-image" src="/assets/galerie-4.webp" alt="Entrepôt équipé de rayonnages à palettes sur plusieurs niveaux" width="1498" height="820" fetchPriority="high" />
-<div className="hero-shade">
-</div>
-<div className="wrap hero-inner">
-<div className="eyebrow light">
-<span>
-</span> HEXAGONE RAYONNAGE · BONNÉE, LOIRET</div>
-<h1 id="hero-title">Rayonnages et <br />aménagements <br />industriels</h1>
-<p>Racks à palettes, cantilevers, mezzanines et cloisons. Nous étudions votre installation selon vos marchandises, votre local et vos contraintes de manutention.</p>
-<div className="actions">
-<a className="button" href="#contact">Demander un devis </a>
-<a className="text-link white" href="#solutions">Voir les équipements </a>
-</div>
-<div className="hero-bottom">
-<span>ENTREPÔTS · ATELIERS · RÉSERVES · INDUSTRIES</span>
-<span className="hero-loc">Bonnée, près d’Orléans </span>
-</div>
-</div>
+  <div className="hero-copy">
+    <div className="eyebrow light">HEXAGONE RAYONNAGE / LOIRET</div>
+    <motion.h1 id="hero-title" initial={false} animate={{ y: [16, 0] }} transition={{ duration: 0.8 }}>Rayonnages &amp;<br />aménagements<br /><span>industriels.</span></motion.h1>
+    <p>Du choix du matériel à son installation, nous aménageons vos espaces selon vos marchandises et votre façon de travailler.</p>
+    <div className="actions"><a className="button" href="#contact">Parlons de votre projet <span aria-hidden="true">→</span></a><a className="text-link white" href="#solutions">Explorer les solutions</a></div>
+    <div className="hero-foot"><span>Bonnée, près d’Orléans</span><span>Intervention partout en France</span></div>
+  </div>
+  <div className="hero-visual"><img src="/assets/galerie-4.webp" alt="Entrepôt équipé de racks à palettes" width="1498" height="820" fetchPriority="high" /><div className="image-label"><span>ÉQUIPER LES ESPACES PROFESSIONNELS</span><strong>Entrepôts. Ateliers. Réserves.</strong></div><a className="image-index" href="#installations" aria-label="Voir les installations">Voir les installations <span aria-hidden="true">↓</span></a></div>
 </section>
 <div className="trust-strip">
 <div className="wrap trust-inner">
@@ -305,6 +296,18 @@ export default function HomePage({ year }: { year: number }) {
 <span className="hours">Du lundi au vendredi · 8 h – 18 h</span>
 <a className="contact-email" href="mailto:contact@hexagone-rayonnage.fr">contact@hexagone-rayonnage.fr</a>
 <p className="address">3 route de Bellegarde <br />45460 Bonnée · Loiret</p>
+<div className="contact-map">
+  <iframe
+    title="Google Maps — 3 route de Bellegarde, 45460 Bonnée"
+    src="https://www.google.com/maps?q=3%20route%20de%20Bellegarde%2C%2045460%20Bonn%C3%A9e%2C%20France&output=embed"
+    width="600"
+    height="280"
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    allowFullScreen
+  />
+  <a href="https://www.google.com/maps/dir/?api=1&destination=3%20route%20de%20Bellegarde%2C%2045460%20Bonn%C3%A9e%2C%20France" target="_blank" rel="noopener noreferrer">Ouvrir l’itinéraire dans Google Maps <span aria-hidden="true">→</span></a>
+</div>
 </div>
 <form onSubmit={prepareQuote} id="quote-form" className="quote-form">
 <h3>Votre demande de devis</h3>
@@ -378,5 +381,5 @@ export default function HomePage({ year }: { year: number }) {
 <button type="button" onClick={() => setPhoto(null)} id="close-photo" aria-label="Fermer la photo">Fermer <span aria-hidden="true">×</span>
 </button>{photo && <img id="large-photo" src={photo.src} alt={photo.title} />}<p id="photo-caption">{photo?.title}</p>
 </dialog>
-</>);
+</MotionConfig>);
 }
